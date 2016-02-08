@@ -508,33 +508,37 @@ typedef NS_ENUM(NSInteger, TOCropViewOverlayEdge) {
 
 - (void)resetLayoutToDefaultAnimated:(BOOL)animated
 {
+    
+    void (^resetBlock)() = nil;
+    
+    if(self.angle != 0) {
+        resetBlock = ^(){
+            self.angle = 0;
+            self.foregroundImageView.transform = CGAffineTransformIdentity;
+            self.backgroundImageView.transform = CGAffineTransformIdentity;
+            
+            self.scrollView.zoomScale = 1.0f;
+            self.backgroundContainerView.frame = (CGRect){CGPointZero, self.backgroundImageView.frame.size};
+            self.backgroundImageView.frame = self.backgroundContainerView.frame;
+            self.foregroundImageView.frame = self.backgroundContainerView.frame;
+            
+            [self layoutInitialImage];
+            [self checkForCanReset];
+        };
+    } else {
+        resetBlock = ^(){
+            [self layoutInitialImage];
+            [self checkForCanReset];
+        };
+    }
+    
     if (animated == NO) {
-        self.angle = 0;
-        self.foregroundImageView.transform = CGAffineTransformIdentity;
-        self.backgroundImageView.transform = CGAffineTransformIdentity;
-        
-        self.scrollView.zoomScale = 1.0f;
-        self.backgroundContainerView.frame = (CGRect){CGPointZero, self.backgroundImageView.frame.size};
-        self.backgroundImageView.frame = self.backgroundContainerView.frame;
-        self.foregroundImageView.frame = self.backgroundContainerView.frame;
-        
-        [self layoutInitialImage];
-        [self checkForCanReset];
+        resetBlock();
         return;
     }
     
     [UIView animateWithDuration:0.5f delay:0.0f usingSpringWithDamping:1.0f initialSpringVelocity:0.7f options:0 animations:^{
-        self.angle = 0;
-        self.foregroundImageView.transform = CGAffineTransformIdentity;
-        self.backgroundImageView.transform = CGAffineTransformIdentity;
-        
-        self.scrollView.zoomScale = 1.0f;
-        self.backgroundContainerView.frame = (CGRect){CGPointZero, self.backgroundImageView.frame.size};
-        self.backgroundImageView.frame = self.backgroundContainerView.frame;
-        self.foregroundImageView.frame = self.backgroundContainerView.frame;
-        
-        [self layoutInitialImage];
-        [self checkForCanReset];
+        resetBlock();
     } completion:nil];
 }
 
