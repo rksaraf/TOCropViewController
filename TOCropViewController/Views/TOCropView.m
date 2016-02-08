@@ -26,7 +26,7 @@
 
 #define TOCROPVIEW_BACKGROUND_COLOR [UIColor colorWithWhite:0.12f alpha:1.0f]
 
-static const CGFloat kTOCropViewPadding = 10.0f;
+static const CGFloat kTOCropViewPadding = 20.0f;
 static const NSTimeInterval kTOCropTimerDuration = 0.8f;
 static const CGFloat kTOCropViewMinimumBoxSize = 42.0f;
 
@@ -510,8 +510,10 @@ typedef NS_ENUM(NSInteger, TOCropViewOverlayEdge) {
 {
     
     void (^resetBlock)() = nil;
+    NSTimeInterval animationDuration = 0.5f;
     
     if(self.angle != 0) {
+        animationDuration = 0.75f;
         resetBlock = ^(){
             self.angle = 0;
             self.foregroundImageView.transform = CGAffineTransformIdentity;
@@ -526,6 +528,7 @@ typedef NS_ENUM(NSInteger, TOCropViewOverlayEdge) {
             [self checkForCanReset];
         };
     } else {
+        animationDuration = 0.5f;
         resetBlock = ^(){
             [self layoutInitialImage];
             [self checkForCanReset];
@@ -537,7 +540,7 @@ typedef NS_ENUM(NSInteger, TOCropViewOverlayEdge) {
         return;
     }
     
-    [UIView animateWithDuration:0.5f delay:0.0f usingSpringWithDamping:1.0f initialSpringVelocity:0.7f options:0 animations:^{
+    [UIView animateWithDuration:animationDuration delay:0.0f usingSpringWithDamping:1.0f initialSpringVelocity:0.7f options:0 animations:^{
         resetBlock();
     } completion:nil];
 }

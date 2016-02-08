@@ -289,7 +289,7 @@
 #pragma mark - Reset -
 - (void)resetCropViewLayout
 {
-    BOOL animated = YES;//(self.cropView.angle == 0);
+    BOOL animated = (self.cropView.angle == 0);
     [self.cropView resetLayoutToDefaultAnimated:animated];
     
     if (self.aspectRatioLocked) {
