@@ -184,9 +184,9 @@
 {
     CGRect frame = self.cropView.frame;
     if (verticalLayout ) {
-        frame.origin.x = 0.0f;
+        frame.origin.x = 44.0f;
         frame.origin.y = 0.0f;
-        frame.size.width = CGRectGetWidth(self.view.bounds) - 0.0f;
+        frame.size.width = CGRectGetWidth(self.view.bounds) - 44.0f;
         frame.size.height = CGRectGetHeight(self.view.frame);
     }
     else {
@@ -195,11 +195,11 @@
         if (_toolbarPosition == TOCropViewControllerToolbarPositionBottom) {
             frame.origin.y = 0.0f;
         } else {
-            frame.origin.y = 0.0f;
+            frame.origin.y = 44.0f;
         }
 
         frame.size.width = CGRectGetWidth(self.view.bounds);
-        frame.size.height = CGRectGetHeight(self.view.frame) - 0.0f;
+        frame.size.height = CGRectGetHeight(self.view.frame) - 44.0f;
     }
     
     return frame;
@@ -645,12 +645,12 @@
 
 - (TOCropToolbar *)toolbar {
     if (!_toolbar) {
-//        static CGFloat height = 44.f;
-//        CGRect frame = CGRectMake(.0f,
-//                                  CGRectGetHeight([UIScreen mainScreen].bounds) - height,
-//                                  CGRectGetWidth([UIScreen mainScreen].bounds),
-//                                  height);
-//        _toolbar = [[TOCropToolbar alloc] initWithFrame:frame];
+        static CGFloat height = 44.f;
+        CGRect frame = CGRectMake(.0f,
+                                  CGRectGetHeight([UIScreen mainScreen].bounds) - height,
+                                  CGRectGetWidth([UIScreen mainScreen].bounds),
+                                  height);
+        _toolbar = [[TOCropToolbar alloc] initWithFrame:frame];
     }
     return _toolbar;
 }
