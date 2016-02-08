@@ -508,40 +508,24 @@ typedef NS_ENUM(NSInteger, TOCropViewOverlayEdge) {
 
 - (void)resetLayoutToDefaultAnimated:(BOOL)animated
 {
-    
-    void (^resetBlock)() = nil;
-    NSTimeInterval animationDuration = 0.5f;
-    
-    if(self.angle != 0) {
-        animationDuration = 0.75f;
-        resetBlock = ^(){
-            self.angle = 0;
-            self.foregroundImageView.transform = CGAffineTransformIdentity;
-            self.backgroundImageView.transform = CGAffineTransformIdentity;
-            
-            self.scrollView.zoomScale = 1.0f;
-            self.backgroundContainerView.frame = (CGRect){CGPointZero, self.backgroundImageView.frame.size};
-            self.backgroundImageView.frame = self.backgroundContainerView.frame;
-            self.foregroundImageView.frame = self.backgroundContainerView.frame;
-            
-            [self layoutInitialImage];
-            [self checkForCanReset];
-        };
-    } else {
-        animationDuration = 0.5f;
-        resetBlock = ^(){
-            [self layoutInitialImage];
-            [self checkForCanReset];
-        };
-    }
-    
-    if (animated == NO) {
-        resetBlock();
+    if (animated == NO || self.angle != 0) {
+        self.angle = 0;
+        self.foregroundImageView.transform = CGAffineTransformIdentity;
+        self.backgroundImageView.transform = CGAffineTransformIdentity;
+        
+        self.scrollView.zoomScale = 1.0f;
+        self.backgroundContainerView.frame = (CGRect){CGPointZero, self.backgroundImageView.frame.size};
+        self.backgroundImageView.frame = self.backgroundContainerView.frame;
+        self.foregroundImageView.frame = self.backgroundContainerView.frame;
+        
+        [self layoutInitialImage];
+        [self checkForCanReset];
         return;
     }
     
-    [UIView animateWithDuration:animationDuration delay:0.0f usingSpringWithDamping:1.0f initialSpringVelocity:0.7f options:0 animations:^{
-        resetBlock();
+    [UIView animateWithDuration:0.5f delay:0.0f usingSpringWithDamping:1.0f initialSpringVelocity:0.7f options:0 animations:^{
+        [self layoutInitialImage];
+        [self checkForCanReset];
     } completion:nil];
 }
 
