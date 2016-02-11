@@ -29,6 +29,8 @@
 
 - (void)cropViewDidBecomeResettable:(TOCropView *)cropView;
 - (void)cropViewDidBecomeNonResettable:(TOCropView *)cropView;
+- (void)cropViewDidBeginPanGesture:(TOCropView *)cropView;
+- (void)cropViewDidEndPanGesture:(TOCropView *)cropView;
 
 @end
 

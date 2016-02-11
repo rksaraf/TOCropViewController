@@ -535,14 +535,25 @@ typedef NS_ENUM(NSInteger, TOCropViewOverlayEdge) {
     CGPoint point = [recognizer locationInView:self];
     
     if (recognizer.state == UIGestureRecognizerStateBegan) {
+        
+        if ([self.delegate respondsToSelector:@selector(cropViewDidBeginPanGesture:)]) {
+            [self.delegate cropViewDidBeginPanGesture:self];
+        }
+        
         [self startEditing];
         self.panOriginPoint = point;
         self.cropOriginFrame = self.cropBoxFrame;
         self.tappedEdge = [self cropEdgeForPoint:self.panOriginPoint];
     }
     
-    if (recognizer.state == UIGestureRecognizerStateEnded)
+    if (recognizer.state == UIGestureRecognizerStateEnded) {
+        
+        if ([self.delegate respondsToSelector:@selector(cropViewDidEndPanGesture:)]) {
+            [self.delegate cropViewDidEndPanGesture:self];
+        }
+        
         [self startResetTimer];
+    }
     
     [self updateCropBoxFrameWithGesturePoint:point];
 }
