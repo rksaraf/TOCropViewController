@@ -180,5 +180,10 @@
  */
 - (void)setCroppingViewsHidden:(BOOL)hidden animated:(BOOL)animated;
 
+/**
+ Returns the cropped and rotated image
+ */
+- (UIImage *)getModifiedImage;
+
 
 @end

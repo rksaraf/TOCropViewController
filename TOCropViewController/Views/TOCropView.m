@@ -23,6 +23,7 @@
 #import "TOCropView.h"
 #import "TOCropOverlayView.h"
 #import "TOCropScrollView.h"
+#import "UIImage+CropRotate.h"
 
 #define TOCROPVIEW_BACKGROUND_COLOR [UIColor colorWithWhite:0.12f alpha:1.0f]
 
@@ -840,6 +841,24 @@ typedef NS_ENUM(NSInteger, TOCropViewOverlayEdge) {
     frame.origin.y = -self.scrollView.contentOffset.y;
     frame.size = self.scrollView.contentSize;
     return frame;
+}
+
+
+- (UIImage *)getModifiedImage
+{
+    UIImage *editedImage = nil;
+    
+    CGRect cropFrame = self.croppedImageFrame;
+    NSInteger angle = self.angle;
+    
+    if (angle == 0 && CGRectEqualToRect(cropFrame, (CGRect){CGPointZero, self.image.size})) {
+        editedImage = self.image;
+    }
+    
+    
+    editedImage = [self.image croppedImageWithFrame:cropFrame angle:angle];
+    
+    return editedImage;
 }
 
 #pragma mark - Editing Mode -
