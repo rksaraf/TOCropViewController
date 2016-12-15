@@ -185,5 +185,10 @@
  */
 - (UIImage *)getModifiedImage;
 
+/**
+ * Re-centers the crop box
+ */
+- (void)moveCroppedContentToCenterAnimated:(BOOL)animated;
+
 
 @end
