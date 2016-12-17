@@ -247,36 +247,18 @@ typedef NS_ENUM(NSInteger, TOCropViewOverlayEdge) {
     [self matchForegroundToBackground];
 }
 
-- (void)relayoutInitialImage
+- (void)relayoutImage
 {
     CGSize imageSize = self.imageSize;
     self.scrollView.contentSize = imageSize;
     
     CGRect bounds = self.contentBounds;
     
-    //work out the max and min scale of the image
-    CGFloat scale = MIN(CGRectGetWidth(bounds)/imageSize.width, CGRectGetHeight(bounds)/imageSize.height);
-    CGSize scaledSize = (CGSize){floorf(imageSize.width * scale), floorf(imageSize.height * scale)};
-    
-    self.scrollView.minimumZoomScale = scale;
-    self.scrollView.maximumZoomScale = 15.0f;
-    //set the fully zoomed out state initially
-    self.scrollView.zoomScale = self.scrollView.minimumZoomScale;
-    self.scrollView.contentSize = scaledSize;
-    
     //Relayout the image in the scroll view
     CGRect frame = self.cropBoxFrame;
-    frame.size = scaledSize;
     frame.origin.x = bounds.origin.x + floorf((CGRectGetWidth(bounds) - frame.size.width) * 0.5f);
     frame.origin.y = bounds.origin.y + floorf((CGRectGetHeight(bounds) - frame.size.height) * 0.5f);
     self.cropBoxFrame = frame;
-    
-    //save the current state for use with 90-degree rotations
-    self.cropBoxLastEditedSize = self.cropBoxFrame.size;
-    self.cropBoxLastEditedAngle = 0;
-    
-    //save the size for checking if we're in a resettable state
-    self.originalCropBoxSize = self.cropBoxFrame.size;
     
 }
 

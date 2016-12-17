@@ -188,7 +188,7 @@
 /**
  Re-layout of the image and views
  */
-- (void)relayoutInitialImage;
+- (void)relayoutImage;
 
 
 @end
