@@ -260,6 +260,7 @@ typedef NS_ENUM(NSInteger, TOCropViewOverlayEdge) {
     frame.origin.y = bounds.origin.y + floorf((CGRectGetHeight(bounds) - frame.size.height) * 0.5f);
     self.cropBoxFrame = frame;
     
+    self.cropBoxLastEditedSize = self.cropBoxFrame.size;
 }
 
 - (void)prepareforRotation
