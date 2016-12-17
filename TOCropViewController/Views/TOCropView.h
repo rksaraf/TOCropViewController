@@ -186,9 +186,9 @@
 - (UIImage *)getModifiedImage;
 
 /**
- * Re-centers the crop box
+ Re-layout of the image and views
  */
-- (void)moveCroppedContentToCenterAnimated:(BOOL)animated;
+- (void)relayoutInitialImage;
 
 
 @end
