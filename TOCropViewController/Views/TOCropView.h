@@ -185,10 +185,4 @@
  */
 - (UIImage *)getModifiedImage;
 
-/**
- Re-layout of the image and views
- */
-- (void)relayoutImage;
-
-
 @end

@@ -247,22 +247,6 @@ typedef NS_ENUM(NSInteger, TOCropViewOverlayEdge) {
     [self matchForegroundToBackground];
 }
 
-- (void)relayoutImage
-{
-    CGSize imageSize = self.imageSize;
-    self.scrollView.contentSize = imageSize;
-    
-    CGRect bounds = self.contentBounds;
-    
-    //Relayout the image in the scroll view
-    CGRect frame = self.cropBoxFrame;
-    frame.origin.x = bounds.origin.x + floorf((CGRectGetWidth(bounds) - frame.size.width) * 0.5f);
-    frame.origin.y = bounds.origin.y + floorf((CGRectGetHeight(bounds) - frame.size.height) * 0.5f);
-    self.cropBoxFrame = frame;
-    
-    self.cropBoxLastEditedSize = self.cropBoxFrame.size;
-}
-
 - (void)prepareforRotation
 {
     self.rotationContentOffset = self.scrollView.contentOffset;
